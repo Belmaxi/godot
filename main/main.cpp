@@ -89,6 +89,7 @@
 #include "editor/debugger/editor_debugger_node.h"
 #include "editor/doc_data_class_path.gen.h"
 #include "editor/doc_tools.h"
+#include "editor/editor_file_system.h"
 #include "editor/editor_help.h"
 #include "editor/editor_node.h"
 #include "editor/editor_paths.h"
@@ -3696,6 +3697,7 @@ bool Main::iteration() {
 	}
 
 	OS::get_singleton()->add_frame_delay(DisplayServer::get_singleton()->window_can_draw());
+
 
 #ifdef TOOLS_ENABLED
 	if (auto_build_solutions) {
