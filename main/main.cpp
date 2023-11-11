@@ -3698,6 +3698,8 @@ bool Main::iteration() {
 
 	OS::get_singleton()->add_frame_delay(DisplayServer::get_singleton()->window_can_draw());
 
+	bool should_quit = exit;
+
 
 #ifdef TOOLS_ENABLED
 	if (auto_build_solutions) {
@@ -3714,9 +3716,16 @@ bool Main::iteration() {
 					"Command line option --build-solutions was passed, but the build callback failed. Aborting.");
 		}
 	}
+
+
+	if (should_quit && EditorFileSystem::get_singleton()) {
+		if (EditorFileSystem::get_singleton()->is_first_scan() || EditorFileSystem::get_singleton()->is_importing()) {
+			should_quit = false;
+		}
+	}
 #endif
 
-	return exit;
+	return should_quit;
 }
 
 void Main::force_redraw() {
